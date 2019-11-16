@@ -1,10 +1,15 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import getStore from './redux/store';
+import Root from './components/Root';
+
+const store = getStore();
 
 function App() {
   return (
-    <div>
-      Hello world!
-    </div>
+    <Provider store={store}>
+      <Root></Root>
+    </Provider>
   );
 }
 
