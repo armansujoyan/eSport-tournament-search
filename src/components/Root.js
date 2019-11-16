@@ -1,7 +1,8 @@
 import React from 'react'
+import Search from './Search'
 
 export default function Root() {
     return (
-        <div>Starting</div>
+        <Search></Search>
     );
 }
