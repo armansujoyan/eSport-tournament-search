@@ -1,15 +1,21 @@
 import React from 'react'
 import { List, ListItem, ListItemText } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles';
+import indigo from '@material-ui/core/colors/indigo';
+
+const bgCol = indigo[500];
 
 const useStyles = makeStyles(theme => ({
     list: {
-        paddingTop: 0
-    },
-    listItemNotFound: {
-        textAlign: 'center'
+        paddingTop: 0,
+        paddingBottom: 0,
+        position: 'fixed',
+        zIndex: 1,
+        width: '100%',
+        backgroundColor: bgCol,
+        color: 'white'
     }
-}));
+}), );
 
 export default function SearchDropdown({ listItems }) {
     const classes = useStyles();
@@ -19,7 +25,7 @@ export default function SearchDropdown({ listItems }) {
             <List className={classes.list}>
                 {
                     listItems.map(item =>
-                    <ListItem button>
+                    <ListItem button key={item}>
                         <ListItemText primary='Some text'/>
                     </ListItem>)
                 }
@@ -27,9 +33,9 @@ export default function SearchDropdown({ listItems }) {
         )
     } else {
         return (
-            <List>
+            <List className={classes.list}>
                 <ListItem>
-                    <ListItemText primary='No results found' className={classes.listItemNotFound}/>
+                    <ListItemText primary='No results found' align='center'/>
                 </ListItem>
             </List>
         )

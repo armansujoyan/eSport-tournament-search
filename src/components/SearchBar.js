@@ -17,12 +17,16 @@ const SearchInput = withStyles(inputStyles)(Input);
 const useStyles = makeStyles(theme => ({
     toolbar: {
         minHeight: 48
+    },
+    searchInput: {
+        paddingLeft: 20,
+        paddingRight: 20
     }
 }));
 
 export default function SearchBar() {
     const [query, setQuery] = useState('');
-    const [list, setList] = useState([]);
+    const [list, setList] = useState([1,2,3,4]);
 
     const classes = useStyles();
 
@@ -35,6 +39,7 @@ export default function SearchBar() {
                     placeholder='Search tournaments...'
                     value={query}
                     onChange={handleChange}
+                    className={classes.searchInput}
                     type='text'
                     fullWidth
                     autoFocus
@@ -42,7 +47,7 @@ export default function SearchBar() {
             </AppBar>
             <Toolbar className={classes.toolbar}/>
             {
-                list.length > 0 ? <SearchDropdown listItems={list}/> : null
+                query.length > 0 ? <SearchDropdown listItems={list}/> : null
             }
         </>
     )
