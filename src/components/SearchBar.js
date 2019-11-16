@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AppBar, Input, Toolbar } from '@material-ui/core'
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import SearchDropdown from './SearchDropdown';
 
 const inputStyles = {
     root: {
@@ -21,6 +22,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function SearchBar() {
     const [query, setQuery] = useState('');
+    const [list, setList] = useState([]);
+
     const classes = useStyles();
 
     const handleChange = event => setQuery(event.target.value);
@@ -30,17 +33,17 @@ export default function SearchBar() {
             <AppBar>
                 <SearchInput
                     placeholder='Search tournaments...'
-                    defaultValue=''
                     value={query}
                     onChange={handleChange}
-                    margin='normal'
                     type='text'
                     fullWidth
-                    autoComplete
                     autoFocus
                 />
             </AppBar>
             <Toolbar className={classes.toolbar}/>
+            {
+                list.length > 0 ? <SearchDropdown listItems={list}/> : null
+            }
         </>
     )
 }
