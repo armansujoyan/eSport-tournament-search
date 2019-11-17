@@ -1,6 +1,7 @@
 import {
     GET_TOURNAMENTS_SUCCESS,
-    GET_TOURNAMENTS_ERROR
+    GET_TOURNAMENTS_ERROR,
+    CLEAR_TOURNAMENTS
 } from '../constants/tournaments'
 
 const initialState = {
@@ -18,6 +19,11 @@ export default (state = initialState, { type, payload }) => {
     case GET_TOURNAMENTS_ERROR:
         return {
             error: payload,
+            elements: []
+        }
+    case CLEAR_TOURNAMENTS:
+        return {
+            error: '',
             elements: []
         }
     default:
