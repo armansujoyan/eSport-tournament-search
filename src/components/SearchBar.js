@@ -35,7 +35,7 @@ export default function SearchBar() {
     const classes = useStyles();
     const delayedQuery = useRef(debounce(
         query => dispatch(getTournaments(query)),
-        300,
+        500,
         {
             trailing: true,
             leading: false

@@ -13,7 +13,7 @@ const initialState = {
 export default (state = initialState, { type, payload }) => {
     switch (type) {
     case ADD_TOURNAMENT_ENTITIES:
-        return { ...state, tournaments: {...payload}}
+        return { ...state, tournaments: {...state.tournaments, ...payload}}
     case REMOVE_TOURNAMENT_ENTITIES:
         const tournaments = Object.assign({}, state);
         payload.map(id => delete tournaments[id]);
