@@ -1,3 +1,11 @@
 import { combineReducers } from "redux";
 
-export default combineReducers({});
+import favorites from './favorites';
+import tournaments from './tournaments';
+import entities from './entities';
+
+export default combineReducers({
+    favorites,
+    tournaments,
+    entities
+});
