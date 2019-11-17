@@ -1,16 +1,23 @@
-import { GET_TOURNAMENTS_SUCCESS } from '../constants/tournaments';
+import {
+    ADD_TOURNAMENT_ENTITIES,
+    REMOVE_TOURNAMENT_ENTITIES
+} from '../constants/entities';
 
-const localFavoriteEntities = localStorage.getItem('tournamentEntities');
+const localTourEntities = localStorage.getItem('tournamentEntities');
 
 const initialState = {
-    tournaments: localFavoriteEntities &&
-        localFavoriteEntities.length > 0 ? { ...localFavoriteEntities } : {},
+    tournaments: localTourEntities &&
+        localTourEntities.length > 0 ? { ...localTourEntities } : {},
 }
 
 export default (state = initialState, { type, payload }) => {
     switch (type) {
-    case GET_TOURNAMENTS_SUCCESS:
-        return { ...state, favorites: Object.assign({}, ...payload)}
+    case ADD_TOURNAMENT_ENTITIES:
+        return { ...state, tournaments: {...payload}}
+    case REMOVE_TOURNAMENT_ENTITIES:
+        const tournaments = Object.assign({}, state);
+        payload.map(id => delete tournaments[id]);
+        return { ...state, tournaments }
     default:
         return state
     }
