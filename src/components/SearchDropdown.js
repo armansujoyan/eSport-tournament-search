@@ -31,7 +31,9 @@ export default function SearchDropdown({ listItems }) {
                             <Avatar
                                 alt='trImg'
                                 variant='square'
-                                src={item.images ? imgUrl + item.images.default.filePath : 'no-logo.png'}/>
+                                src={item.images && item.images.default.thumbs ?
+                                imgUrl + item.images.default.thumbs.web.w50h50.jpg :
+                                'no-logo.png'}/>
                         </ListItemAvatar>
                         <ListItemText primary={item.title} secondary={item.description}/>
                     </ListItem>)

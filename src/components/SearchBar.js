@@ -75,7 +75,7 @@ export default function SearchBar() {
             </AppBar>
             <Toolbar className={classes.toolbar}/>
             {
-                foundTournaments.length > 0 && query.length > 0 ? <SearchDropdown listItems={foundTournaments}/> : null
+                query.length >= 2 ? <SearchDropdown listItems={foundTournaments}/> : null
             }
         </>
     )
