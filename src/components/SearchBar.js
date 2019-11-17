@@ -1,10 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { debounce } from 'lodash';
-import { AppBar, Input, Toolbar, FormHelperText } from '@material-ui/core'
+import { AppBar, Input, Toolbar } from '@material-ui/core'
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 
-import { getTournaments } from '../redux/actions/tournamentsActions';
+import { getTournaments, clearTournaments } from '../redux/actions/tournamentsActions';
 import { tournamentSelector } from '../redux/selectors/tournaments'
 import SearchDropdown from './SearchDropdown';
 
@@ -45,6 +45,8 @@ export default function SearchBar() {
         } else if(query.length !== 0) {
             error = false;
             dispatch(getTournaments(query));
+        } else {
+            dispatch(clearTournaments())
         }
         setError(error);
         }, 400, { trailing: true, leading: false }
