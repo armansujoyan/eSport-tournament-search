@@ -8,6 +8,7 @@ export default function FavoritesItem({ imageUrl, primary, secondary, removeFavo
             <ListItemAvatar>
                 <Avatar
                     alt='Avatar'
+                    variant='square'
                     src={imageUrl}
                 />
             </ListItemAvatar>

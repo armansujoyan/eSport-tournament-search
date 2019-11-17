@@ -1,5 +1,6 @@
-import React from 'react'
-import { List, ListItem, ListItemText } from '@material-ui/core'
+import React from 'react';
+import { List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@material-ui/core';
+import { imgUrl } from '../config'
 import { makeStyles } from '@material-ui/styles';
 import indigo from '@material-ui/core/colors/indigo';
 
@@ -15,7 +16,7 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: bgCol,
         color: 'white'
     }
-}), );
+}));
 
 export default function SearchDropdown({ listItems }) {
     const classes = useStyles();
@@ -25,8 +26,14 @@ export default function SearchDropdown({ listItems }) {
             <List className={classes.list}>
                 {
                     listItems.map(item =>
-                    <ListItem button key={item}>
-                        <ListItemText primary='Some text'/>
+                    <ListItem button key={item.id}>
+                        <ListItemAvatar>
+                            <Avatar
+                                alt='trImg'
+                                variant='square'
+                                src={item.images ? imgUrl + item.images.default.filePath : 'no-logo.png'}/>
+                        </ListItemAvatar>
+                        <ListItemText primary={item.title} secondary={item.description}/>
                     </ListItem>)
                 }
             </List>
