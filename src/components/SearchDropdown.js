@@ -1,7 +1,7 @@
 import React from 'react';
 import { List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@material-ui/core';
 import { imgUrl } from '../config'
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles, withStyles } from '@material-ui/styles';
 import indigo from '@material-ui/core/colors/indigo';
 
 const bgCol = indigo[500];
@@ -13,10 +13,19 @@ const useStyles = makeStyles(theme => ({
         position: 'fixed',
         zIndex: 1,
         width: '100%',
+        color: 'white',
         backgroundColor: bgCol,
-        color: 'white'
     }
 }));
+
+const ListItemTextWhite = withStyles({
+    primary: {
+        color: 'white'
+    },
+    secondary: {
+        color: 'white'
+    }
+})(ListItemText);
 
 export default function SearchDropdown({ listItems }) {
     const classes = useStyles();
@@ -35,7 +44,7 @@ export default function SearchDropdown({ listItems }) {
                                 imgUrl + item.images.default.thumbs.web.w50h50.jpg :
                                 'no-logo.png'}/>
                         </ListItemAvatar>
-                        <ListItemText primary={item.title} secondary={item.description}/>
+                        <ListItemTextWhite primary={item.title} secondary={item.description}/>
                     </ListItem>)
                 }
             </List>
