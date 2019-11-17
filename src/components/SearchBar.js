@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { debounce } from 'lodash';
-import { AppBar, Input, Toolbar } from '@material-ui/core'
+import { AppBar, Input, Toolbar, CircularProgress } from '@material-ui/core'
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 
 import { getTournaments, clearTournaments } from '../redux/actions/tournamentsActions';
@@ -83,7 +83,7 @@ export default function SearchBar() {
             </AppBar>
             <Toolbar className={classes.toolbar}/>
             {
-                showDropDown && !isLoading ? <SearchDropdown listItems={foundTournaments}/> : null
+                showDropDown ? <SearchDropdown listItems={foundTournaments} isLoading={isLoading}/> : null
             }
         </>
     )
