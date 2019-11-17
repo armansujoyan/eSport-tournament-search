@@ -32,6 +32,7 @@ const useStyles = makeStyles(theme => ({
 export default function SearchBar() {
     const [query, setQuery] = useState('');
     const [error, setError] = useState(false);
+    const [showDropDown, setShowDropDown] = useState(false);
 
     const dispatch = useDispatch();
     const foundTournaments = useSelector(tournamentSelector);
@@ -56,8 +57,12 @@ export default function SearchBar() {
         event.persist();
         const { value } = event.target;
         setQuery(value);
+        value.length >= 2 ? setShowDropDown(true) : setShowDropDown(false);
         delayedQuery(value);
     };
+
+    const handleBlur = () => setShowDropDown(false);
+    const handleFocus = () => query.length >= 2 ? setShowDropDown(true) : null;
 
     return (
         <>
@@ -66,6 +71,8 @@ export default function SearchBar() {
                     placeholder='Search tournaments...'
                     value={query}
                     onChange={handleChange}
+                    onBlur={handleBlur}
+                    onFocus={handleFocus}
                     className={classes.searchInput}
                     error={error}
                     type='text'
@@ -75,7 +82,7 @@ export default function SearchBar() {
             </AppBar>
             <Toolbar className={classes.toolbar}/>
             {
-                query.length >= 2 ? <SearchDropdown listItems={foundTournaments}/> : null
+                showDropDown ? <SearchDropdown listItems={foundTournaments}/> : null
             }
         </>
     )
