@@ -6,3 +6,5 @@ export const tournamentSelector = state => {
     const entities = state.entities.tournaments;
     return tournaments.map(t => entities[t]);
 }
+
+export const tournamentLoadSelector = state => state.tournaments.isLoading;

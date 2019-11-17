@@ -5,7 +5,7 @@ import { AppBar, Input, Toolbar } from '@material-ui/core'
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 
 import { getTournaments, clearTournaments } from '../redux/actions/tournamentsActions';
-import { tournamentSelector } from '../redux/selectors/tournaments'
+import { tournamentSelector, tournamentLoadSelector } from '../redux/selectors/tournaments'
 import SearchDropdown from './SearchDropdown';
 
 const inputStyles = {
@@ -36,6 +36,7 @@ export default function SearchBar() {
 
     const dispatch = useDispatch();
     const foundTournaments = useSelector(tournamentSelector);
+    const isLoading = useSelector(tournamentLoadSelector);
 
     const classes = useStyles();
     const delayedQuery = useRef(debounce(
@@ -49,6 +50,7 @@ export default function SearchBar() {
         } else {
             dispatch(clearTournaments())
         }
+        query.length >= 2 ? setShowDropDown(true) : setShowDropDown(false);
         setError(error);
         }, 400, { trailing: true, leading: false }
     )).current;
@@ -57,7 +59,6 @@ export default function SearchBar() {
         event.persist();
         const { value } = event.target;
         setQuery(value);
-        value.length >= 2 ? setShowDropDown(true) : setShowDropDown(false);
         delayedQuery(value);
     };
 
@@ -82,7 +83,7 @@ export default function SearchBar() {
             </AppBar>
             <Toolbar className={classes.toolbar}/>
             {
-                showDropDown ? <SearchDropdown listItems={foundTournaments}/> : null
+                showDropDown && !isLoading ? <SearchDropdown listItems={foundTournaments}/> : null
             }
         </>
     )
