@@ -1,9 +1,11 @@
 import React, { useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
-import { getTournaments } from '../redux/actions/tournamentsActions';
+import { useDispatch, useSelector } from 'react-redux';
 import { debounce } from 'lodash';
-import { AppBar, Input, Toolbar } from '@material-ui/core'
+import { AppBar, Input, Toolbar, FormHelperText } from '@material-ui/core'
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+
+import { getTournaments } from '../redux/actions/tournamentsActions';
+import { tournamentSelector } from '../redux/selectors/tournaments'
 import SearchDropdown from './SearchDropdown';
 
 const inputStyles = {
@@ -29,23 +31,30 @@ const useStyles = makeStyles(theme => ({
 
 export default function SearchBar() {
     const [query, setQuery] = useState('');
-    const [list, setList] = useState([1,2,3,4]);
+    const [error, setError] = useState(false);
 
     const dispatch = useDispatch();
+    const foundTournaments = useSelector(tournamentSelector);
+
     const classes = useStyles();
     const delayedQuery = useRef(debounce(
-        query => dispatch(getTournaments(query)),
-        500,
-        {
-            trailing: true,
-            leading: false
+        query => {
+        let error;
+        if (query.length > 0 && query.length < 2) {
+            error = true;
+        } else if(query.length !== 0) {
+            error = false;
+            dispatch(getTournaments(query));
         }
+        setError(error);
+        }, 400, { trailing: true, leading: false }
     )).current;
 
     const handleChange = event => {
         event.persist();
-        setQuery(event.target.value);
-        delayedQuery(query);
+        const { value } = event.target;
+        setQuery(value);
+        delayedQuery(value);
     };
 
     return (
@@ -56,6 +65,7 @@ export default function SearchBar() {
                     value={query}
                     onChange={handleChange}
                     className={classes.searchInput}
+                    error={error}
                     type='text'
                     fullWidth
                     autoFocus
@@ -63,7 +73,7 @@ export default function SearchBar() {
             </AppBar>
             <Toolbar className={classes.toolbar}/>
             {
-                query.length > 0 ? <SearchDropdown listItems={list}/> : null
+                foundTournaments.length > 0 && query.length > 0 ? <SearchDropdown listItems={foundTournaments}/> : null
             }
         </>
     )

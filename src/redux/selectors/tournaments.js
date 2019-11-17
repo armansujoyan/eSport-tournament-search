@@ -1,10 +1,8 @@
-import { createSelector } from 'reselect';
+const tournamentsSelector = state => state.tournaments.elements;
+const tournamentEntitesSelector = state => state.entites.tournaments;
 
-const tournamentsSelector = createSelector(state => state.tournaments.elements);
-const tournamentEntitesSelector = createSelector(state => state.entites.tournaments);
-
-export const getTournamentSelector = () => createSelector(
-    tournamentsSelector,
-    tournamentEntitesSelector,
-    (tournaments, entities) => tournaments.map(t => entities[t])
-);
+export const tournamentSelector = state => {
+    const tournaments = state.tournaments.elements;
+    const entities = state.entities.tournaments;
+    return tournaments.map(t => entities[t]);
+}
