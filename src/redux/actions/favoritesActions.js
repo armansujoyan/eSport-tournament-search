@@ -1,9 +1,9 @@
 import { ADD_FAVORITE, DELETE_FAVORITE } from '../constants';
 
-export const addFavorite = favorite => {
+export const addFavorite = favoriteId => {
     return {
         type: ADD_FAVORITE,
-        payload: favorite
+        payload: favoriteId
     }
 }
 
