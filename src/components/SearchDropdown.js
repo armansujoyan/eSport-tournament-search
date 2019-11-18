@@ -2,9 +2,6 @@ import React from 'react';
 import { List, ListItem, ListItemText, CircularProgress, Paper } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/styles';
 import SearchDropdownItem from './SearchDropdownItem';
-import indigo from '@material-ui/core/colors/indigo';
-
-const bgCol = indigo[500];
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -14,7 +11,7 @@ const useStyles = makeStyles(theme => ({
         zIndex: 1,
         width: '100%',
         color: 'white',
-        backgroundColor: bgCol,
+        backgroundColor: theme.palette.primary.main,
         maxHeight: '50%',
         overflow: 'auto',
         boxShadow: `0px 8px 6px 3px rgba(0,0,0,0.2),
