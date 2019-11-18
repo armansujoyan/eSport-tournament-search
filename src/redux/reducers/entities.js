@@ -3,7 +3,7 @@ import {
     REMOVE_TOURNAMENT_ENTITIES
 } from '../constants/entities';
 
-const localEntities = JSON.parse(localStorage.getItem('entities'));
+const localEntities = JSON.parse(localStorage.getItem('tournaments:entities'));
 
 const initialState = localEntities ? localEntities : {
     tournaments: {}

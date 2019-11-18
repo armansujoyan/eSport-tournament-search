@@ -1,7 +1,7 @@
 import { ADD_FAVORITE, DELETE_FAVORITE } from '../constants/favorites';
 import { union } from 'lodash';
 
-const localFavorites = JSON.parse(localStorage.getItem('favorites'));
+const localFavorites = JSON.parse(localStorage.getItem('tournaments:favorites'));
 
 const initialState = localFavorites && localFavorites.length > 0 ? localFavorites : [];
 

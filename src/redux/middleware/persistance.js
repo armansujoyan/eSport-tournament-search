@@ -12,7 +12,7 @@ export default store => next => action => {
     switch (type) {
         case ADD_FAVORITE:
             const addNextFavorites = union(favorites, [ payload ]);
-            localStorage.setItem('favorites', JSON.stringify(addNextFavorites));
+            localStorage.setItem('tournaments:favorites', JSON.stringify(addNextFavorites));
             break;
         case DELETE_FAVORITE:
             const itemIndex = favorites.findIndex(id => id === payload);
@@ -20,13 +20,13 @@ export default store => next => action => {
                 ...favorites.slice(0, itemIndex),
                 ...favorites.slice(itemIndex+1, favorites.lenght)
             ];
-            localStorage.setItem('favorites', JSON.stringify(delNextFavorites));
+            localStorage.setItem('tournaments:favorites', JSON.stringify(delNextFavorites));
             break;
         case ADD_TOURNAMENT_ENTITIES:
             const addNextTournaments = { tournaments: {
                 ...tournamentEntities, ...payload
             }};
-            localStorage.setItem('entities', JSON.stringify(addNextTournaments));
+            localStorage.setItem('tournaments:entities', JSON.stringify(addNextTournaments));
             break;
         default:
             break;
