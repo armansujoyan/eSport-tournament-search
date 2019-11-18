@@ -1,7 +1,7 @@
 import React from 'react';
-import { List, ListItem, ListItemText, ListItemAvatar, Avatar, CircularProgress } from '@material-ui/core';
-import { imgUrlBase } from '../config';
+import { List, ListItem, ListItemText, CircularProgress } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/styles';
+import SearchDropdownItem from './SearchDropdownItem';
 import indigo from '@material-ui/core/colors/indigo';
 
 const bgCol = indigo[500];
@@ -18,39 +18,23 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const ListItemTextWhite = withStyles({
-    primary: {
-        color: 'white'
-    },
-    secondary: {
-        color: 'white'
-    }
-})(ListItemText);
-
 const WhiteCircularProgress = withStyles({
     circle: { color: 'white' }
 })(CircularProgress);
 
-export default function SearchDropdown({ listItems, isLoading, addFavorite }) {
+export default function SearchDropdown({ listItems, isLoading, handleItemClick }) {
     const classes = useStyles();
+
+    const itemsToList = item => <SearchDropdownItem
+        key={item.id}
+        item={item}
+        clickHandler={handleItemClick}
+        />
 
     if (listItems.length > 0) {
         return (
             <List className={classes.list}>
-                {
-                    listItems.map(item =>
-                    <ListItem button key={item.id} onClick={() => addFavorite(item.id)}>
-                        <ListItemAvatar>
-                            <Avatar
-                                alt='trImg'
-                                variant='square'
-                                src={item.images && item.images.default.thumbs ?
-                                imgUrlBase + item.images.default.thumbs.web.w50h50.jpg :
-                                'no-logo.png'}/>
-                        </ListItemAvatar>
-                        <ListItemTextWhite primary={item.title} secondary={item.description}/>
-                    </ListItem>)
-                }
+                { listItems.map(itemsToList) }
             </List>
         )
     } else if(isLoading) {
