@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, ListItem, ListItemText, CircularProgress, Paper } from '@material-ui/core';
+import { List, ListItem, ListItemText, CircularProgress } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/styles';
 import SearchDropdownItem from './SearchDropdownItem';
 
