@@ -24,7 +24,7 @@ export default store => next => action => {
             break;
         case ADD_TOURNAMENT_ENTITIES:
             const addNextTournaments = { tournaments: {
-                ...tournamentEntities.tournaments, ...payload
+                ...tournamentEntities, ...payload
             }};
             localStorage.setItem('entities', JSON.stringify(addNextTournaments));
             break;
