@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { debounce } from 'lodash';
 
@@ -13,10 +13,24 @@ export default function Search() {
     const [showDropDown, setShowDropDown] = useState(false);
     const [error, setError] = useState(false);
     const [query, setQuery] = useState('');
+    const modalRef = useRef(null);
+    useEffect(() => {
+        document.addEventListener('mousedown', handleOutsideClick, false);
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick, false);
+        };
+    })
 
     const dispatch = useDispatch();
     const foundTournaments = useSelector(tournamentSelector);
     const isLoading = useSelector(tournamentLoadSelector);
+
+    const handleOutsideClick = event => {
+        if(modalRef.current && modalRef.current.contains(event.target))
+            return;
+
+        setShowDropDown(false);
+    }
 
     const delayedQuery = useRef(debounce(
         query => {
@@ -58,10 +72,12 @@ export default function Search() {
                 onChange={handleChange}
                 onFocus={handleFocus}
                 error={error}
-                value={query}/>
+                value={query}
+                />
             {
                 showDropDown ? <SearchDropdown
                     listItems={foundTournaments}
+                    ref={modalRef}
                     isLoading={isLoading}
                     handleItemClick={handleDropdownItemClick}/> : null
             }

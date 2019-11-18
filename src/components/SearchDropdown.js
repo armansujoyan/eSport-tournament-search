@@ -22,7 +22,7 @@ const WhiteCircularProgress = withStyles({
     circle: { color: 'white' }
 })(CircularProgress);
 
-export default function SearchDropdown({ listItems, isLoading, handleItemClick }) {
+const SearchDropdown = React.forwardRef(({ listItems, isLoading, handleItemClick }, fRef) => {
     const classes = useStyles();
 
     const itemsToList = item => <SearchDropdownItem
@@ -33,13 +33,13 @@ export default function SearchDropdown({ listItems, isLoading, handleItemClick }
 
     if (listItems.length > 0) {
         return (
-            <List className={classes.list}>
+            <List className={classes.list} ref={fRef}>
                 { listItems.map(itemsToList) }
             </List>
         )
     } else if(isLoading) {
         return (
-            <List className={classes.list}>
+            <List className={classes.list} ref={fRef}>
                 <ListItem style={{ display: 'flex', justifyContent: 'center' }}>
                     <WhiteCircularProgress  size={32} thickness={5}/>
                 </ListItem>
@@ -47,11 +47,13 @@ export default function SearchDropdown({ listItems, isLoading, handleItemClick }
         )
     } else {
         return (
-            <List className={classes.list}>
+            <List className={classes.list} ref={fRef}>
                 <ListItem>
                     <ListItemText primary='No results found' align='center'/>
                 </ListItem>
             </List>
         )
     }
-}
+})
+
+export default SearchDropdown;
