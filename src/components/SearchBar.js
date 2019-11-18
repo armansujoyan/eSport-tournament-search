@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { debounce } from 'lodash';
-import { AppBar, Input, Toolbar, CircularProgress } from '@material-ui/core'
+import { AppBar, Input, Toolbar } from '@material-ui/core'
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 
 import { getTournaments, clearTournaments } from '../redux/actions/tournamentsActions';
+import { addFavorite } from '../redux/actions/favoritesActions'
 import { tournamentSelector, tournamentLoadSelector } from '../redux/selectors/tournaments'
 import SearchDropdown from './SearchDropdown';
 
@@ -62,7 +63,12 @@ export default function SearchBar() {
         delayedQuery(value);
     };
 
-    const handleBlur = () => setShowDropDown(false);
+    const addFavoriteAction = id => {
+        dispatch(addFavorite(id));
+        setShowDropDown(false);
+        setQuery('');
+    };
+
     const handleFocus = () => query.length >= 2 ? setShowDropDown(true) : null;
 
     return (
@@ -72,7 +78,6 @@ export default function SearchBar() {
                     placeholder='Search tournaments...'
                     value={query}
                     onChange={handleChange}
-                    onBlur={handleBlur}
                     onFocus={handleFocus}
                     className={classes.searchInput}
                     error={error}
@@ -83,7 +88,10 @@ export default function SearchBar() {
             </AppBar>
             <Toolbar className={classes.toolbar}/>
             {
-                showDropDown ? <SearchDropdown listItems={foundTournaments} isLoading={isLoading}/> : null
+                showDropDown ? <SearchDropdown
+                    listItems={foundTournaments}
+                    isLoading={isLoading}
+                    addFavorite={addFavoriteAction}/> : null
             }
         </>
     )

@@ -1,6 +1,7 @@
 import React from 'react';
 import { List, ListItem, ListItemText, ListItemAvatar, Avatar, CircularProgress } from '@material-ui/core';
-import { imgUrl } from '../config'
+import { addFavorite } from '../redux/actions/favoritesActions'
+import { imgUrl } from '../config';
 import { makeStyles, withStyles } from '@material-ui/styles';
 import indigo from '@material-ui/core/colors/indigo';
 
@@ -31,7 +32,7 @@ const WhiteCircularProgress = withStyles({
     circle: { color: 'white' }
 })(CircularProgress);
 
-export default function SearchDropdown({ listItems, isLoading }) {
+export default function SearchDropdown({ listItems, isLoading, addFavorite }) {
     const classes = useStyles();
 
     if (listItems.length > 0) {
@@ -39,7 +40,7 @@ export default function SearchDropdown({ listItems, isLoading }) {
             <List className={classes.list}>
                 {
                     listItems.map(item =>
-                    <ListItem button key={item.id}>
+                    <ListItem button key={item.id} onClick={() => addFavorite(item.id)}>
                         <ListItemAvatar>
                             <Avatar
                                 alt='trImg'

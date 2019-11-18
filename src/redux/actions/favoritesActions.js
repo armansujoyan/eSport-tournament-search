@@ -1,4 +1,4 @@
-import { ADD_FAVORITE, DELETE_FAVORITE } from '../constants';
+import { ADD_FAVORITE, DELETE_FAVORITE } from '../constants/favorites';
 
 export const addFavorite = favoriteId => {
     return {
