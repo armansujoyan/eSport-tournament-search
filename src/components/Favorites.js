@@ -1,7 +1,8 @@
 import React from 'react'
 import { List, Box, Typography } from '@material-ui/core';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { imgUrl } from '../config';
+import { deleteFavorite } from '../redux/actions/favoritesActions';
 import { favoritesSelector } from '../redux/selectors/favorites';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -19,7 +20,10 @@ const useStyles = makeStyles({
 
 export default function Favorites() {
     const favorites = useSelector(favoritesSelector);
+    const dispatch = useDispatch();
     const classes = useStyles();
+
+    const removeFavorite = id => dispatch(deleteFavorite(id));
 
     if(favorites.length > 0) {
         return (
@@ -29,7 +33,7 @@ export default function Favorites() {
                         imageUrl={item.images && item.images.default.thumbs ?
                             imgUrl + item.images.default.thumbs.web.w50h50.jpg :
                             'no-logo.png'}
-                        removeFavorite={() => console.log('Removing')}
+                        removeFavorite={() => removeFavorite(item.id)}
                         primary='Some primary text'
                         secondary='Some secondary text'
                         key={item.id}/>)
