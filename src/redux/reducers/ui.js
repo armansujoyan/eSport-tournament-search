@@ -1,16 +1,16 @@
 import { SET_DIALOGUE_STATE, SET_DROPDOWN_STATE } from '../constants/ui'
 
 const initialState = {
-    showDialogue: false,
-    showDropdown: false
+    showFavoritesDeleteDialogue: false,
+    showSearchDropdown: false
 }
 
 export default (state = initialState, { type, payload }) => {
     switch (type) {
     case SET_DIALOGUE_STATE:
-        return { ...state, showDialogue: payload }
+        return { ...state, showFavoritesDeleteDialogue: payload }
     case SET_DROPDOWN_STATE:
-        return { ...state, showDropdown: payload}
+        return { ...state, showSearchDropdown: payload}
     default:
         return state
     }

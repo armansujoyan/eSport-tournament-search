@@ -1,2 +1,2 @@
-export const getDropdownVisibiliy = state => state.ui.showDropdown;
-export const getDialogueVisibiliy = state => state.ui.showDialoge;
+export const getDropdownVisibiliy = state => state.ui.showSearchDropdown;
+export const getDialogueVisibiliy = state => state.ui.showFavoritesDeleteDialogue;

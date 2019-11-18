@@ -15,7 +15,7 @@ export default function Search() {
     const [error, setError] = useState(false);
     const [query, setQuery] = useState('');
 
-    const modalRef = useRef(null);
+    const dropdownRef = useRef(null);
 
     useEffect(() => {
         document.addEventListener('mousedown', handleOutsideClick, false);
@@ -33,7 +33,7 @@ export default function Search() {
     const setShowDropDown = visibility => dispatch(setDropdownVisibility(visibility));
 
     const handleOutsideClick = event => {
-        if(modalRef.current && modalRef.current.contains(event.target))
+        if(dropdownRef.current && dropdownRef.current.contains(event.target))
             return;
 
         setShowDropDown(false);
@@ -84,7 +84,7 @@ export default function Search() {
             {
                 showDropDown ? <SearchDropdown
                     listItems={foundTournaments}
-                    ref={modalRef}
+                    ref={dropdownRef}
                     isLoading={isLoading}
                     handleItemClick={handleDropdownItemClick}/> : null
             }

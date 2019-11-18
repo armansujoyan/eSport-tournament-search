@@ -3,12 +3,16 @@ import {
     Box,
     List,
     Typography } from '@material-ui/core';
-import ConfirmationDialog from './ConfirmationDialog';
 import { useSelector, useDispatch } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
+
 import { imgUrlBase } from '../config';
 import { deleteFavorite } from '../redux/actions/favoritesActions';
+import { setDialogueVisibility } from '../redux/actions/uiActions'
 import { favoritesSelector } from '../redux/selectors/favorites';
-import { makeStyles } from '@material-ui/core/styles';
+import { getDialogueVisibiliy } from '../redux/selectors/ui'
+
+import ConfirmationDialog from './ConfirmationDialog';
 
 import FavoritesItem from './FavoritesItem';
 
@@ -24,22 +28,24 @@ const useStyles = makeStyles({
 
 export default function Favorites() {
     const favorites = useSelector(favoritesSelector);
+    const showDialogue = useSelector(getDialogueVisibiliy);
     const dispatch = useDispatch();
     const classes = useStyles();
 
-    const [open, setOpen] = useState(false);
+    const setDialogueState = visibility => dispatch(setDialogueVisibility(visibility));
+
     const [current, setCurrent] = useState('');
 
     const handleDialogClose = remove => {
         if (remove)
             removeFavorite(current.id)
-        setOpen(false);
+        setDialogueState(false);
         setCurrent({});
     }
 
     const openRemoveDialog = favorite => {
         setCurrent(favorite);
-        setOpen(true);
+        setDialogueState(true);
     }
 
     const favoritesToList = item =>
@@ -61,7 +67,7 @@ export default function Favorites() {
                     { favorites.map(favoritesToList) }
                 </List>
                 <ConfirmationDialog
-                    open={open}
+                    open={showDialogue}
                     rejectTxt='No'
                     confirmTxt='Yes'
                     title='Remove favorite'
