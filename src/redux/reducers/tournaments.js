@@ -7,27 +7,23 @@ import {
 
 const initialState = {
     elements: [],
-    error: '',
-    isLoading: false,
+    error: ''
 }
 
 export default (state = initialState, { type, payload }) => {
     switch (type) {
     case GET_TOURNAMENTS:
         return {
-            ...state,
-            isLoading: true
+            ...state
         }
     case GET_TOURNAMENTS_SUCCESS:
         return {
             elements: payload,
-            error: '',
-            isLoading: false
+            error: ''
         }
     case GET_TOURNAMENTS_ERROR:
         return {
             error: payload,
-            isLoading: false,
             elements: []
         }
     case CLEAR_TOURNAMENTS:

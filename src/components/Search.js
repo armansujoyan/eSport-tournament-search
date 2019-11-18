@@ -5,8 +5,8 @@ import { debounce } from 'lodash';
 import { addFavorite } from '../redux/actions/favoritesActions'
 import { setDropdownVisibility } from '../redux/actions/uiActions'
 import { getTournaments, clearTournaments } from '../redux/actions/tournamentsActions';
-import { getDropdownVisibiliy } from '../redux/selectors/ui'
-import { tournamentSelector, tournamentLoadSelector } from '../redux/selectors/tournaments'
+import { getDropdownVisibiliy, getDialogueLoaderVisibility } from '../redux/selectors/ui'
+import { tournamentSelector } from '../redux/selectors/tournaments'
 
 import SearchDropdown from './SearchDropdown';
 import SearchBar from './SearchBar'
@@ -19,7 +19,7 @@ export default function Search() {
 
     const showDropDown = useSelector(getDropdownVisibiliy);
     const foundTournaments = useSelector(tournamentSelector);
-    const isLoading = useSelector(tournamentLoadSelector);
+    const isLoading = useSelector(getDialogueLoaderVisibility);
 
     const setShowDropDown = visibility => dispatch(setDropdownVisibility(visibility));
 
