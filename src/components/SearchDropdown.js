@@ -38,11 +38,13 @@ export default function SearchDropdown({ listItems, isLoading, handleItemClick }
             </List>
         )
     } else if(isLoading) {
-        return (<List className={classes.list}>
-            <ListItem style={{ display: 'flex', justifyContent: 'center' }}>
-                <WhiteCircularProgress  size={32} thickness={5}/>
-            </ListItem>
-        </List>)
+        return (
+            <List className={classes.list}>
+                <ListItem style={{ display: 'flex', justifyContent: 'center' }}>
+                    <WhiteCircularProgress  size={32} thickness={5}/>
+                </ListItem>
+            </List>
+        )
     } else {
         return (
             <List className={classes.list}>

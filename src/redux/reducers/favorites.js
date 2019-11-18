@@ -9,7 +9,6 @@ export default (state = initialState, { type, payload }) => {
     switch (type) {
     case ADD_FAVORITE:
         const addNextState = union(state, [ payload ]);
-        console.log(payload, addNextState)
         localStorage.setItem('favorites', JSON.stringify(addNextState));
         return addNextState;
     case DELETE_FAVORITE:
