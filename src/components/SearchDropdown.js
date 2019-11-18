@@ -1,6 +1,5 @@
 import React from 'react';
 import { List, ListItem, ListItemText, ListItemAvatar, Avatar, CircularProgress } from '@material-ui/core';
-import { addFavorite } from '../redux/actions/favoritesActions'
 import { imgUrl } from '../config';
 import { makeStyles, withStyles } from '@material-ui/styles';
 import indigo from '@material-ui/core/colors/indigo';

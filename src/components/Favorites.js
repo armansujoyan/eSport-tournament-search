@@ -1,5 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { List, Box, Typography } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import { imgUrl } from '../config';
+import { favoritesSelector } from '../redux/selectors/favorites';
 import { makeStyles } from '@material-ui/core/styles';
 
 import FavoritesItem from './FavoritesItem';
@@ -15,19 +18,21 @@ const useStyles = makeStyles({
 });
 
 export default function Favorites() {
-    const [favorites, setFavorites] = useState([1,2,3,4]);
+    const favorites = useSelector(favoritesSelector);
     const classes = useStyles();
 
     if(favorites.length > 0) {
         return (
             <List className={classes.list}>
                 {
-                    favorites.map(id => <FavoritesItem
-                        imageUrl='https://banner2.cleanpng.com/20171216/6a4/ferrari-logo-png-image-5a34cef8d07541.1125412015134102968539.jpg'
+                    favorites.map(item => <FavoritesItem
+                        imageUrl={item.images && item.images.default.thumbs ?
+                            imgUrl + item.images.default.thumbs.web.w50h50.jpg :
+                            'no-logo.png'}
                         removeFavorite={() => console.log('Removing')}
                         primary='Some primary text'
                         secondary='Some secondary text'
-                        key={id}/>)
+                        key={item.id}/>)
                 }
             </List>
         )
