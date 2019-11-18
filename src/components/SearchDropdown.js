@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { List, ListItem, ListItemText, CircularProgress } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/styles';
 import SearchDropdownItem from './SearchDropdownItem';
@@ -24,8 +24,23 @@ const WhiteCircularProgress = withStyles({
     circle: { color: 'white' }
 })(CircularProgress);
 
-const SearchDropdown = React.forwardRef(({ listItems, isLoading, handleItemClick }, fRef) => {
+export default function SearchDropdown({ listItems, isLoading, handleItemClick, setDropdown }) {
     const classes = useStyles();
+    const dropdownRef = useRef(null);
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleOutsideClick, false);
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick, false);
+        };
+    });
+
+    const handleOutsideClick = event => {
+        if(dropdownRef.current && dropdownRef.current.contains(event.target))
+            return;
+
+        setDropdown(false);
+    }
 
     const itemsToList = item => <SearchDropdownItem
         key={item.id}
@@ -35,13 +50,13 @@ const SearchDropdown = React.forwardRef(({ listItems, isLoading, handleItemClick
 
     if (listItems.length > 0) {
         return (
-            <List className={classes.list} ref={fRef}>
+            <List className={classes.list} ref={dropdownRef}>
                 { listItems.map(itemsToList) }
             </List>
         )
     } else if(isLoading) {
         return (
-            <List className={classes.list} ref={fRef}>
+            <List className={classes.list} ref={dropdownRef}>
                 <ListItem style={{ display: 'flex', justifyContent: 'center' }}>
                     <WhiteCircularProgress  size={32} thickness={5}/>
                 </ListItem>
@@ -49,13 +64,11 @@ const SearchDropdown = React.forwardRef(({ listItems, isLoading, handleItemClick
         )
     } else {
         return (
-            <List className={classes.list} ref={fRef}>
+            <List className={classes.list} ref={dropdownRef}>
                 <ListItem>
                     <ListItemText primary='No results found' align='center'/>
                 </ListItem>
             </List>
         )
     }
-})
-
-export default SearchDropdown;
+};

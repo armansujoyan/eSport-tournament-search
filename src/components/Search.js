@@ -15,15 +15,6 @@ export default function Search() {
     const [error, setError] = useState(false);
     const [query, setQuery] = useState('');
 
-    const dropdownRef = useRef(null);
-
-    useEffect(() => {
-        document.addEventListener('mousedown', handleOutsideClick, false);
-        return () => {
-            document.removeEventListener('mousedown', handleOutsideClick, false);
-        };
-    })
-
     const dispatch = useDispatch();
 
     const showDropDown = useSelector(getDropdownVisibiliy);
@@ -31,13 +22,6 @@ export default function Search() {
     const isLoading = useSelector(tournamentLoadSelector);
 
     const setShowDropDown = visibility => dispatch(setDropdownVisibility(visibility));
-
-    const handleOutsideClick = event => {
-        if(dropdownRef.current && dropdownRef.current.contains(event.target))
-            return;
-
-        setShowDropDown(false);
-    }
 
     const delayedQuery = useRef(debounce(
         query => {
@@ -83,8 +67,8 @@ export default function Search() {
                 />
             {
                 showDropDown ? <SearchDropdown
+                    setDropdown={setShowDropDown}
                     listItems={foundTournaments}
-                    ref={dropdownRef}
                     isLoading={isLoading}
                     handleItemClick={handleDropdownItemClick}/> : null
             }
