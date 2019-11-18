@@ -1,5 +1,5 @@
-export const tournamentEntitesSelector = state => state.entities.tournaments;
-export const favoriteIdSelector = state => state.favorites;
+export const tournamentEntitesSelector = state => state.app.entities.tournaments;
+export const favoriteIdSelector = state => state.app.favorites;
 
 export const favoritesSelector = state => {
     const entities = tournamentEntitesSelector(state);
