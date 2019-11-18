@@ -1,6 +1,6 @@
 import React from 'react';
 import { List, ListItem, ListItemText, ListItemAvatar, Avatar, CircularProgress } from '@material-ui/core';
-import { imgUrl } from '../config';
+import { imgUrlBase } from '../config';
 import { makeStyles, withStyles } from '@material-ui/styles';
 import indigo from '@material-ui/core/colors/indigo';
 
@@ -45,7 +45,7 @@ export default function SearchDropdown({ listItems, isLoading, addFavorite }) {
                                 alt='trImg'
                                 variant='square'
                                 src={item.images && item.images.default.thumbs ?
-                                imgUrl + item.images.default.thumbs.web.w50h50.jpg :
+                                imgUrlBase + item.images.default.thumbs.web.w50h50.jpg :
                                 'no-logo.png'}/>
                         </ListItemAvatar>
                         <ListItemTextWhite primary={item.title} secondary={item.description}/>

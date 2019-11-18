@@ -5,7 +5,7 @@ import {
     Typography } from '@material-ui/core';
 import ConfirmationDialog from './ConfirmationDialog';
 import { useSelector, useDispatch } from 'react-redux';
-import { imgUrl } from '../config';
+import { imgUrlBase } from '../config';
 import { deleteFavorite } from '../redux/actions/favoritesActions';
 import { favoritesSelector } from '../redux/selectors/favorites';
 import { makeStyles } from '@material-ui/core/styles';
@@ -26,21 +26,31 @@ export default function Favorites() {
     const favorites = useSelector(favoritesSelector);
     const dispatch = useDispatch();
     const classes = useStyles();
+
     const [open, setOpen] = useState(false);
     const [current, setCurrent] = useState('');
 
     const handleDialogClose = remove => {
-        if (remove) {
+        if (remove)
             removeFavorite(current.id)
-        }
         setOpen(false);
         setCurrent({});
     }
 
-    const requestDelete = favorite => {
+    const openRemoveDialog = favorite => {
         setCurrent(favorite);
         setOpen(true);
     }
+
+    const favoritesToList = item =>
+        <FavoritesItem
+            imageUrl={item.images && item.images.default.thumbs ?
+                imgUrlBase + item.images.default.thumbs.web.w50h50.jpg :
+                'no-logo.png'}
+            removeFavorite={() => openRemoveDialog(item)}
+            primary={item.title}
+            secondary={item.description}
+            key={item.id}/>
 
     const removeFavorite = id => dispatch(deleteFavorite(id));
 
@@ -48,16 +58,7 @@ export default function Favorites() {
         return (
             <>
                 <List className={classes.list}>
-                    {
-                        favorites.map(item => <FavoritesItem
-                            imageUrl={item.images && item.images.default.thumbs ?
-                                imgUrl + item.images.default.thumbs.web.w50h50.jpg :
-                                'no-logo.png'}
-                            removeFavorite={() => requestDelete(item)}
-                            primary={item.title}
-                            secondary={item.description}
-                            key={item.id}/>)
-                    }
+                    { favorites.map(favoritesToList) }
                 </List>
                 <ConfirmationDialog
                     open={open}

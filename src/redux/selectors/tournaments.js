@@ -1,9 +1,9 @@
-const tournamentsSelector = state => state.tournaments.elements;
-const tournamentEntitesSelector = state => state.entites.tournaments;
+const tournamentIdsSelector = state => state.tournaments.elements;
+const tournamentEntitesSelector = state => state.entities.tournaments;
 
 export const tournamentSelector = state => {
-    const tournaments = state.tournaments.elements;
-    const entities = state.entities.tournaments;
+    const tournaments = tournamentIdsSelector(state);
+    const entities = tournamentEntitesSelector(state);
     return tournaments.map(t => entities[t]);
 }
 
