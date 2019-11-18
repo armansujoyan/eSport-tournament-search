@@ -9,7 +9,6 @@ export default (state = initialState, { type, payload }) => {
     switch (type) {
     case ADD_FAVORITE:
         const addNextState = union(state, [ payload ]);
-        localStorage.setItem('favorites', JSON.stringify(addNextState));
         return addNextState;
     case DELETE_FAVORITE:
         const itemIndex = state.findIndex(id => id === payload);
@@ -17,7 +16,6 @@ export default (state = initialState, { type, payload }) => {
             ...state.slice(0, itemIndex),
             ...state.slice(itemIndex+1, state.lenght)
         ];
-        localStorage.setItem('favorites', JSON.stringify(delNextState))
         return delNextState;
     default:
         return state

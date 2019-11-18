@@ -13,7 +13,6 @@ export default (state = initialState, { type, payload }) => {
     switch (type) {
     case ADD_TOURNAMENT_ENTITIES:
         const nextState = { ...state, tournaments: {...state.tournaments, ...payload}};
-        localStorage.setItem('entities', JSON.stringify(nextState));
         return nextState;
     case REMOVE_TOURNAMENT_ENTITIES:
         const tournaments = Object.assign({}, state);
