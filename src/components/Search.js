@@ -2,18 +2,21 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { debounce } from 'lodash';
 
-import { getTournaments, clearTournaments } from '../redux/actions/tournamentsActions';
 import { addFavorite } from '../redux/actions/favoritesActions'
+import { setDropdownVisibility } from '../redux/actions/uiActions'
+import { getTournaments, clearTournaments } from '../redux/actions/tournamentsActions';
+import { getDropdownVisibiliy } from '../redux/selectors/ui'
 import { tournamentSelector, tournamentLoadSelector } from '../redux/selectors/tournaments'
 
 import SearchDropdown from './SearchDropdown';
 import SearchBar from './SearchBar'
 
 export default function Search() {
-    const [showDropDown, setShowDropDown] = useState(false);
     const [error, setError] = useState(false);
     const [query, setQuery] = useState('');
+
     const modalRef = useRef(null);
+
     useEffect(() => {
         document.addEventListener('mousedown', handleOutsideClick, false);
         return () => {
@@ -22,8 +25,12 @@ export default function Search() {
     })
 
     const dispatch = useDispatch();
+
+    const showDropDown = useSelector(getDropdownVisibiliy);
     const foundTournaments = useSelector(tournamentSelector);
     const isLoading = useSelector(tournamentLoadSelector);
+
+    const setShowDropDown = visibility => dispatch(setDropdownVisibility(visibility));
 
     const handleOutsideClick = event => {
         if(modalRef.current && modalRef.current.contains(event.target))
