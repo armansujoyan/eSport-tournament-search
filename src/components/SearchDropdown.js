@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, ListItem, ListItemText, CircularProgress } from '@material-ui/core';
+import { List, ListItem, ListItemText, CircularProgress, Paper } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/styles';
 import SearchDropdownItem from './SearchDropdownItem';
 import indigo from '@material-ui/core/colors/indigo';
@@ -15,6 +15,11 @@ const useStyles = makeStyles(theme => ({
         width: '100%',
         color: 'white',
         backgroundColor: bgCol,
+        maxHeight: '50%',
+        overflow: 'auto',
+        boxShadow: `0px 8px 6px 3px rgba(0,0,0,0.2),
+                    0px 5px 3px -2px rgba(0,0,0,0.14),
+                    0px 1px 10px 1px rgba(0,0,0,0.12)`
     }
 }));
 
