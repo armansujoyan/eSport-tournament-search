@@ -31,7 +31,7 @@ export default function SearchBar(props) {
             <AppBar>
                 <SearchInput
                     className={classes.searchInput}
-                    type='text'
+                    type='search'
                     fullWidth
                     autoFocus
                     {...props}

@@ -17,7 +17,9 @@ export default function FavoritesItem({
                     src={imageUrl}
                 />
             </ListItemAvatar>
-            <ListItemText  primary={primary} secondary={secondary}/>
+            <ListItemText  primary={primary} secondary={secondary}
+            primaryTypographyProps={{variant: 'subtitle1'}}
+            secondaryTypographyProps={{variant: 'subtitle2'}}/>
             <IconButton onClick={removeFavorite}>
                 <DeleteIcon/>
             </IconButton>
