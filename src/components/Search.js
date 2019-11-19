@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { debounce } from 'lodash';
+import { throttle } from 'lodash';
 
 import { addFavorite } from '../redux/actions/favoritesActions'
 import { setDropdownVisibility } from '../redux/actions/uiActions'
@@ -23,7 +23,7 @@ export default function Search() {
 
     const setShowDropDown = visibility => dispatch(setDropdownVisibility(visibility));
 
-    const delayedQuery = useRef(debounce(
+    const delayedQuery = useRef(throttle(
         query => {
         let error;
         if (query.length > 0 && query.length < 2) {
@@ -36,7 +36,7 @@ export default function Search() {
         }
         query.length >= 2 ? setShowDropDown(true) : setShowDropDown(false);
         setError(error);
-        }, 400, { trailing: true, leading: false }
+        }, 600, { trailing: true, leading: false }
     )).current;
 
     const addFavoriteAction = id => {
